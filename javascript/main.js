@@ -120,6 +120,8 @@ function openModal(photoId) {
         'concert2': '<img src="img/toque3.jpg" alt="Cinderwood en Santo Café Bar Buga" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santo Café Bar, Buga</strong><br>Show íntimo en vivo - 2025',
         'band1': '<img src="img/grabacion_Until.jpg" alt="Grabación EP Until The Last One Goes" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Grabando el EP</strong><br>Primer EP "Until The Last One Goes"',
         'acoustic1': '<img src="img/toque2.jpg" alt="Cinderwood en Cafetería Vonbayage" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Cafetería Vonbayage</strong><br>Sesión acústica íntima - 2025'
+        ,
+        'santuario1': '<img src="img/santuario_pub.jpg" alt="Cinderwood en Santuario Pub" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santuario Pub</strong><br>Show en vivo - 2025'
     };
     
     modalImage.innerHTML = photoData[photoId] || 'Foto no encontrada';
