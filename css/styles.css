@@ -26,6 +26,61 @@ Description: Styles for the band's EPK website
     --neon-glow: #00ffff;
     --gradient: linear-gradient(135deg, #00ffff 0%, #0088cc 100%);
 }
+/* Downloads Section */
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--primary-color);
+    color: #fff;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 0.9rem 1.3rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 6px 18px rgba(0, 255, 255, 0.08);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    background: #111;
+    border-color: rgba(0,255,255,0.45);
+    box-shadow: 0 12px 32px rgba(0, 255, 255, 0.22);
+}
+
+.download-btn.secondary {
+    background: var(--accent-color);
+    color: #000;
+    border-color: rgba(0,0,0,0.1);
+}
+
+.download-btn.secondary:hover {
+    background: var(--accent-hover);
+    border-color: rgba(0,0,0,0.2);
+}
+
+.download-btn.disabled,
+.download-btn[aria-disabled="true"] {
+    background: #bbb;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-icon svg {
+    display: block;
+}
+
+.btn-text {
+    line-height: 1;
+}
 
 body {
     font-family: 'Inter', sans-serif;
@@ -300,6 +355,30 @@ section {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
 }
 
+/* Focus styles for accessibility */
+:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: -999px;
+}
+
+.skip-link:focus {
+    left: 16px;
+    top: 16px;
+    background: #ffffff;
+    color: #000000;
+    padding: 8px 12px;
+    border-radius: 6px;
+    z-index: 1000;
+    box-shadow: 0 0 0 3px var(--accent-color);
+}
+
 /* Stats Section */
 .stats {
     background: var(--primary-color);
@@ -513,6 +592,21 @@ section {
     transform: translateY(0);
 }
 
+/* Badge for upcoming events */
+.event-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--accent-color);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(0,255,255,0.35);
+    z-index: 2;
+}
+
 .photo-title {
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -648,4 +742,24 @@ footer {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .fade-in {
+        transition: none;
+        transform: none;
+    }
+    .fade-in.visible {
+        opacity: 1;
+    }
+    .logo-text {
+        animation: none;
+    }
+}
+.section-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-top: -2rem;
+    margin-bottom: 2.5rem;
 }

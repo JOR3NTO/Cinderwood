@@ -44,6 +44,35 @@ document.querySelectorAll('.fade-in').forEach(el => {
     observer.observe(el);
 });
 
+// DOWNLOADS AVAILABILITY CHECK
+// ============================
+document.addEventListener('DOMContentLoaded', async () => {
+    const files = [
+        { id: 'riderDownload', path: 'docs/Rider_Tecnico_Cinderwood.pdf' },
+        { id: 'epkDownload', path: 'docs/epk-cinderwood.pdf' },
+    ];
+
+    for (const f of files) {
+        const link = document.getElementById(f.id);
+        if (!link) continue;
+        link.href = f.path;
+        try {
+            const res = await fetch(f.path, { method: 'HEAD' });
+            if (!res.ok) {
+                link.setAttribute('aria-disabled', 'true');
+                link.classList.add('disabled');
+                link.removeAttribute('download');
+                link.removeAttribute('target');
+            }
+        } catch {
+            link.setAttribute('aria-disabled', 'true');
+            link.classList.add('disabled');
+            link.removeAttribute('download');
+            link.removeAttribute('target');
+        }
+    }
+});
+
 // MUSIC PLAYER FUNCTIONALITY
 // ==========================
 // Play track function - opens Spotify directly
@@ -111,6 +140,7 @@ if (statsSection) {
 function openModal(photoId) {
     const modal = document.getElementById('photoModal');
     const modalImage = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.close-modal');
     
     // Aquí puedes agregar las rutas reales de las fotos
     const photoData = {
@@ -121,7 +151,8 @@ function openModal(photoId) {
         'band1': '<img src="img/grabacion_Until.jpg" alt="Grabación EP Until The Last One Goes" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Grabando el EP</strong><br>Primer EP "Until The Last One Goes"',
         'acoustic1': '<img src="img/toque2.jpg" alt="Cinderwood en Cafetería Vonbayage" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Cafetería Vonbayage</strong><br>Sesión acústica íntima - 2025'
         ,
-        'santuario1': '<img src="img/santuario_pub.jpg" alt="Cinderwood en Santuario Pub" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santuario Pub</strong><br>Show en vivo - 2025'
+        'santuario1': '<img src="img/Santuario.jpg" alt="Cinderwood en Santuario Pub" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santuario Pub</strong><br>Show en vivo - 2025',
+        'nextEvent': '<img src="img/santuario.jpeg" alt="Presentación en Santuario Pub, 17 de enero" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Próximo Evento</strong><br>17 de enero — Santuario Pub, Buga'
     };
     
     modalImage.innerHTML = photoData[photoId] || 'Foto no encontrada';
@@ -129,6 +160,11 @@ function openModal(photoId) {
     
     // Prevenir scroll del body cuando el modal está abierto
     document.body.style.overflow = 'hidden';
+
+    // Enfocar el botón de cierre para accesibilidad
+    if (closeBtn) {
+        closeBtn.focus();
+    }
 }
 
 function closeModal() {
@@ -151,3 +187,14 @@ document.addEventListener('keydown', function(event) {
         closeModal();
     }
 });
+
+// Permitir cerrar modal con Enter/Espacio en el botón de cierre
+const closeBtnKey = document.querySelector('.close-modal');
+if (closeBtnKey) {
+    closeBtnKey.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            closeModal();
+        }
+    });
+}

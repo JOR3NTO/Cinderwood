@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinderwood</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" href="img/CINDERWOOD.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cinderwood | EPK Oficial</title>
+        <meta name="description" content="Cinderwood es una banda de indie rock con estética 80s y folk emocional. EPK oficial: biografía, música, fotos, estadísticas y contacto.">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+        <!-- Open Graph -->
+        <meta property="og:title" content="Cinderwood | EPK Oficial">
+        <meta property="og:description" content="Biografía, música, fotos, estadísticas y contacto de Cinderwood.">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="es_CO">
+        <meta property="og:site_name" content="Cinderwood">
+        <meta property="og:image" content="img/logo.png">
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Cinderwood | EPK Oficial">
+        <meta name="twitter:description" content="Explora el EPK oficial de Cinderwood: música, fotos y contacto.">
+        <meta name="twitter:image" content="img/logo.png">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="icon" type="image/png" href="img/CINDERWOOD.png">
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "MusicGroup",
+            "name": "Cinderwood",
+            "genre": ["Indie Rock", "Folk Rock", "Synthwave"],
+            "foundingLocation": "Colombia",
+            "image": "img/logo.png",
+            "sameAs": [
+                "https://instagram.com/cinderwood.music",
+                "https://tiktok.com/@cinderwood.music",
+                "https://music.apple.com/artist/cinderwood"
+            ]
+        }
+        </script>
 </head>
 <body>
     <!-- Header -->
@@ -22,17 +52,20 @@
     </header>
 
     <!-- Navigation -->
-    <nav>
+    <nav role="navigation" aria-label="Navegación principal">
         <div class="container">
             <div class="nav-container">
                 <a href="#about" class="nav-link">Sobre Nosotros</a>
                 <a href="#music" class="nav-link">Música</a>
                 <a href="#gallery" class="nav-link">Galería</a>
                 <a href="#stats" class="nav-link">Estadísticas</a>
+                <a href="#rider" class="nav-link">Rider Técnico</a>
                 <a href="#contact" class="nav-link">Contacto</a>
             </div>
         </div>
     </nav>
+
+    <main id="main-content">
 
     <!-- About Section -->
     <section id="about">
@@ -41,10 +74,10 @@
             <div class="about-grid">
                 <div class="about-text fade-in">
                     <h3>Nuestra Historia</h3>
-                    <p>Cinderwood nació como un proyecto de folk rock, inspirado en la intimidad de las guitarras acústicas y las narrativas sinceras. Con el tiempo, la banda fue expandiendo su universo sonoro, encontrando en los sintetizadores y la energía del indie rock un nuevo camino de exploración.</p>
-                    
+                    <p>Cinderwood nació explorando el folk rock, con canciones íntimas y narrativas honestas. Con el paso del tiempo, el proyecto evolucionó de forma natural hacia un sonido más amplio y eléctrico, donde las guitarras, los sintetizadores y las texturas comenzaron a tomar protagonismo. Esta transformación marcó el inicio de una identidad más definida, abierta a nuevas influencias y a una búsqueda sonora constante.</p>
+                    <br>
                     <h3>Nuestro Sonido</h3>
-                    <p>Hoy, Cinderwood se mueve entre la melancolía y la fuerza, con canciones que evocan la estética de los años 80, guitarras envolventes y capas sonoras que invitan tanto a la introspección como al movimiento. Su propuesta busca crear paisajes emocionales donde conviven la calidez del folk y la intensidad del rock alternativo moderno.</p>
+                    <p>Actualmente, Cinderwood se mueve en el terreno del indie rock con una fuerte influencia de los años 80. Su música combina guitarras espaciales, sintetizadores envolventes y una base rítmica que oscila entre la melancolía y la energía. Las canciones construyen atmósferas emocionales que invitan tanto a la introspección como al movimiento, conectando lo nostálgico con lo contemporáneo y manteniendo siempre una carga emocional profunda.</p>
                 </div>
                 <div class="band-photo fade-in">
                     <img src="img/band-photo.jpg" alt="Cinderwood en estudio" class="band-image" />
@@ -67,11 +100,47 @@
         </div>
     </section>
 
+    <!-- Rider Técnico Section -->
+    <section id="rider">
+        <div class="container">
+            <h2 class="section-title fade-in">Rider y EPK</h2>
+            <div class="downloads-grid fade-in" aria-label="Descargas de documentación">
+                <a id="riderDownload" href="docs/Rider_Tecnico_Cinderwood.pdf" class="download-btn" target="_blank" rel="noopener noreferrer" download aria-label="Descargar Rider Técnico en PDF">
+                    <span class="btn-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.103.897 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+                            <path d="M8 15h8v2H8zM8 11h8v2H8z"/>
+                        </svg>
+                    </span>
+                    <span class="btn-text">Descargar Rider (PDF)</span>
+                </a>
+                <a id="epkDownload" href="docs/epk-cinderwood.pdf" class="download-btn secondary" target="_blank" rel="noopener noreferrer" download aria-label="Descargar EPK en PDF">
+                    <span class="btn-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.103.897 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+                            <path d="M8 15h8v2H8zM8 11h8v2H8z"/>
+                        </svg>
+                    </span>
+                    <span class="btn-text">Descargar EPK (PDF)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Gallery Section -->
     <section id="gallery">
         <div class="container">
             <h2 class="section-title fade-in">Galería</h2>
             <div class="gallery-grid">
+                <!-- Próximo Evento -->
+                <div class="photo-item fade-in" onclick="openModal('nextEvent')">
+                    <span class="event-badge">Próximo Evento</span>
+                    <img src="img/santuario.jpeg" alt="Presentación en Santuario Pub, 17 de enero" class="gallery-image" />
+                    <div class="photo-overlay">
+                        <div class="photo-title">17 de enero — Santuario Pub</div>
+                        <div class="photo-description">Presentación en vivo en Buga</div>
+                    </div>
+                </div>
                 <div class="photo-item fade-in" onclick="openModal('concert1')">
                     <img src="img/toque.jpg" alt="Cinderwood en Skandalo Tulua" class="gallery-image" />
                     <div class="photo-overlay">
@@ -133,8 +202,8 @@
     </section>
 
     <!-- Modal para ver fotos -->
-    <div id="photoModal" class="modal">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div id="photoModal" class="modal" role="dialog" aria-modal="true" aria-label="Imagen de la galería">
+        <span class="close-modal" role="button" aria-label="Cerrar modal" tabindex="0" onclick="closeModal()">&times;</span>
         <div class="modal-content">
             <div class="modal-image photo-placeholder" id="modalImage">
                 Aquí aparecerá la foto seleccionada
@@ -152,7 +221,7 @@
                     <p>Oyentes mensuales</p>
                 </div>
                 <div class="stat-item fade-in">
-                    <h3>4</h3>
+                    <h3>5</h3>
                     <p>Shows en vivo</p>
                 </div>
                 <div class="stat-item fade-in">
@@ -176,12 +245,12 @@
                 <div class="contact-card fade-in">
                     <h3>Redes Sociales</h3>
                     <div class="social-links-row">
-                        <a href="https://instagram.com/cinderwood.music" target="_blank" class="social-link instagram">
+                        <a href="https://instagram.com/cinderwood.music" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="Instagram de Cinderwood">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                             </svg>
                         </a>
-                        <a href="https://tiktok.com/@cinderwood.music" target="_blank" class="social-link tiktok">
+                        <a href="https://tiktok.com/@cinderwood.music" target="_blank" rel="noopener noreferrer" class="social-link tiktok" aria-label="TikTok de Cinderwood">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-1.032-.083 6.411 6.411 0 0 0-6.4 6.4 6.411 6.411 0 0 0 6.4 6.4 6.411 6.411 0 0 0 6.4-6.4V8.109a8.188 8.188 0 0 0 4.165 1.139V6.686h-.3z"/>
                             </svg>
@@ -191,12 +260,12 @@
                 <div class="contact-card fade-in">
                     <h3>Streaming</h3>
                     <div class="streaming-links-row">
-                        <a href="https://open.spotify.com/artist/your-artist-id" target="_blank" class="streaming-link spotify">
+                        <a href="https://open.spotify.com/artist/your-artist-id" target="_blank" rel="noopener noreferrer" class="streaming-link spotify" aria-label="Perfil de Cinderwood en Spotify">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.481.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
                             </svg>
                         </a>
-                        <a href="https://music.apple.com/artist/cinderwood" target="_blank" class="streaming-link apple">
+                        <a href="https://music.apple.com/artist/cinderwood" target="_blank" rel="noopener noreferrer" class="streaming-link apple" aria-label="Perfil de Cinderwood en Apple Music">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                             </svg>
@@ -211,6 +280,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Footer -->
     <footer>
