@@ -47,6 +47,7 @@ document.querySelectorAll('.fade-in').forEach(el => {
 // DOWNLOADS AVAILABILITY CHECK
 // ============================
 document.addEventListener('DOMContentLoaded', async () => {
+    const isHttp = window.location && window.location.protocol && window.location.protocol.startsWith('http');
     const files = [
         { id: 'riderDownload', path: 'docs/Rider_Tecnico_Cinderwood.pdf' },
         { id: 'epkDownload', path: 'docs/Cinderwood_Electronic_Press_Kit.pdf' },
@@ -56,19 +57,49 @@ document.addEventListener('DOMContentLoaded', async () => {
         const link = document.getElementById(f.id);
         if (!link) continue;
         link.href = f.path;
-        try {
-            const res = await fetch(f.path, { method: 'HEAD' });
-            if (!res.ok) {
+        if (isHttp) {
+            try {
+                const res = await fetch(f.path, { method: 'HEAD' });
+                if (!res.ok) {
+                    link.setAttribute('aria-disabled', 'true');
+                    link.classList.add('disabled');
+                    link.removeAttribute('download');
+                    link.removeAttribute('target');
+                }
+            } catch {
                 link.setAttribute('aria-disabled', 'true');
                 link.classList.add('disabled');
                 link.removeAttribute('download');
                 link.removeAttribute('target');
             }
-        } catch {
-            link.setAttribute('aria-disabled', 'true');
-            link.classList.add('disabled');
-            link.removeAttribute('download');
-            link.removeAttribute('target');
+        }
+    }
+
+    // Enable and validate per-song press kit downloads
+    const presskitLinks = document.querySelectorAll('.presskit-download');
+    for (const link of presskitLinks) {
+        const pdfPath = link.getAttribute('data-pdf');
+        if (!pdfPath) continue;
+        link.href = pdfPath;
+        if (isHttp) {
+            try {
+                const res = await fetch(pdfPath, { method: 'HEAD' });
+                if (!res.ok) {
+                    link.setAttribute('aria-disabled', 'true');
+                    link.classList.add('disabled', 'soon');
+                    const textSpan = link.querySelector('.btn-text');
+                    if (textSpan) textSpan.textContent = 'Press Kit próximamente';
+                    link.removeAttribute('download');
+                    link.removeAttribute('target');
+                }
+            } catch {
+                link.setAttribute('aria-disabled', 'true');
+                link.classList.add('disabled', 'soon');
+                const textSpan = link.querySelector('.btn-text');
+                if (textSpan) textSpan.textContent = 'Press Kit próximamente';
+                link.removeAttribute('download');
+                link.removeAttribute('target');
+            }
         }
     }
 });

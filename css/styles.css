@@ -69,8 +69,19 @@ Description: Styles for the band's EPK website
 
 .download-btn.disabled,
 .download-btn[aria-disabled="true"] {
-    background: #bbb;
-    cursor: not-allowed;
+    background: #eeeeee;
+    color: #666;
+    border-color: #ddd;
+    cursor: default;
+    box-shadow: none;
+    opacity: 0.8;
+}
+
+/* Soon (file not available yet) state: subtle dashed outline */
+.download-btn.soon {
+    background: transparent;
+    color: #555;
+    border: 1.5px dashed #bbbbbb;
     box-shadow: none;
 }
 
@@ -342,7 +353,7 @@ section {
     background: var(--accent-color);
     color: white;
     border: none;
-    padding: 0.8rem 2rem;
+    padding: 0.7rem 1.4rem;
     border-radius: 25px;
     font-weight: 500;
     cursor: pointer;
@@ -353,6 +364,27 @@ section {
     background: var(--accent-hover);
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+}
+
+/* Track action row: align buttons side-by-side */
+.track-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+/* Press kit button compact style inside track card */
+.track-card .download-btn {
+    padding: 0.7rem 1.2rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.12);
+}
+
+.track-card .download-btn .btn-icon svg {
+    width: 18px;
+    height: 18px;
 }
 
 /* Focus styles for accessibility */
