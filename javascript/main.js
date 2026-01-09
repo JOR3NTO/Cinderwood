@@ -49,7 +49,7 @@ document.querySelectorAll('.fade-in').forEach(el => {
 document.addEventListener('DOMContentLoaded', async () => {
     const files = [
         { id: 'riderDownload', path: 'docs/Rider_Tecnico_Cinderwood.pdf' },
-        { id: 'epkDownload', path: 'docs/epk-cinderwood.pdf' },
+        { id: 'epkDownload', path: 'docs/Cinderwood_Electronic_Press_Kit.pdf' },
     ];
 
     for (const f of files) {
