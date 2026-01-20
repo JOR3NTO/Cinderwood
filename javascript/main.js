@@ -175,6 +175,7 @@ function openModal(photoId) {
     
     // Aquí puedes agregar las rutas reales de las fotos
     const photoData = {
+        'santuario_enero': '<img src="img/santuario_enero.jpg" alt="Cinderwood en Santuario Pub, enero 2026" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santuario Pub, Buga</strong><br>Presentación en vivo — Enero 2026',
         'concert1': '<img src="img/toque.jpg" alt="Cinderwood en Skandalo Tulua" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Skandalo, Tuluá 2025</strong><br>Show épico en vivo',
         'studio1': '<img src="img/estudioPID.jpg" alt="Grabación de Pure in Deep" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>En el estudio</strong><br>Grabando "Pure in Deep" - 2025',
         'backstage1': '<img src="img/preparacion.jpg" alt="Cinderwood backstage" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Backstage</strong><br>Los momentos antes de salir al escenario',
