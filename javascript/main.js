@@ -44,6 +44,48 @@ document.querySelectorAll('.fade-in').forEach(el => {
     observer.observe(el);
 });
 
+function observeFadeIns(root = document) {
+    root.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// LANGUAGE SWITCHER
+// =================
+function setLanguage(lang) {
+    const root = document.documentElement;
+    root.setAttribute('data-lang', lang);
+
+    const esElements = document.querySelectorAll('.lang-es');
+    const enElements = document.querySelectorAll('.lang-en');
+
+    esElements.forEach(el => {
+        el.classList.toggle('lang-hidden', lang !== 'es');
+    });
+
+    enElements.forEach(el => {
+        el.classList.toggle('lang-hidden', lang !== 'en');
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+
+function initLanguageSwitcher() {
+    const stored = window.localStorage ? localStorage.getItem('cinderwood-lang') : null;
+    const initialLang = stored === 'en' ? 'en' : 'es';
+    setLanguage(initialLang);
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.dataset.lang === 'en' ? 'en' : 'es';
+            setLanguage(lang);
+            if (window.localStorage) {
+                localStorage.setItem('cinderwood-lang', lang);
+            }
+        });
+    });
+}
+
 // DOWNLOADS AVAILABILITY CHECK
 // ============================
 document.addEventListener('DOMContentLoaded', async () => {
@@ -102,6 +144,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     }
+
+    // Initialize language switcher
+    initLanguageSwitcher();
+
+    // Render gallery (data-driven)
+    renderGallery();
 });
 
 // MUSIC PLAYER FUNCTIONALITY
@@ -167,27 +215,149 @@ if (statsSection) {
 
 // GALLERY MODAL FUNCTIONALITY
 // ===========================
+const GALLERY_ITEMS = [
+    {
+        id: 'santuario_enero',
+        src: 'img/photos/santuario_enero.jpg',
+        alt: 'Cinderwood en Santuario Pub, enero 2026',
+        title: 'Santuario Pub, Buga',
+        size: 'hero'
+    },
+    {
+        id: 'concert1',
+        src: 'img/photos/toque.jpg',
+        alt: 'Cinderwood en Skandalo, Tuluá',
+        title: 'Skandalo, Tuluá',
+        size: 'm'
+    },
+    {
+        id: 'studio1',
+        src: 'img/photos/DSC04054.jpg',
+        alt: 'Grabación de Pure in Deep',
+        title: 'En el estudio',
+        size: 'tall'
+    },
+    {
+        id: 'backstage1',
+        src: 'img/photos/preparacion.jpg',
+        alt: 'Cinderwood backstage',
+        title: 'Backstage',
+        size: 'm'
+    },
+    {
+        id: 'concert2',
+        src: 'img/photos/toque3.jpg',
+        alt: 'Cinderwood en Santo Café Bar, Buga',
+        title: 'Santo Café Bar, Buga',
+        size: 'l'
+    },
+    {
+        id: 'band1',
+        src: 'img/photos/grabacion_Until.jpg',
+        alt: 'Grabación del EP Until The Last One Goes',
+        title: 'Grabando el EP',
+        size: 'm'
+    },
+    {
+        id: 'santuario1',
+        src: 'img/photos/Santuario.jpg',
+        alt: 'Cinderwood en Santuario Pub',
+        title: 'Santuario Pub, Buga',
+        size: 'm'
+    },
+
+    // Fotos adicionales (según los nombres reales en img/photos)
+    { id: 'dsc_03841', src: 'img/photos/DSC03841-2.jpg', alt: 'Cinderwood — DSC03841-2', title: '', size: 'm' },
+    { id: 'dsc_03883', src: 'img/photos/DSC03883.jpg', alt: 'Cinderwood — DSC03883', title: '', size: 'm' },
+    { id: 'dsc_03904', src: 'img/photos/DSC03904.jpg', alt: 'Cinderwood — DSC03904', title: '', size: 'm' },
+    { id: 'dsc_04060', src: 'img/photos/DSC04060.jpg', alt: 'Cinderwood — DSC04060', title: '', size: 'm' },
+    { id: 'dsc_04200', src: 'img/photos/DSC04200.jpg', alt: 'Cinderwood — DSC04200', title: '', size: 'wide' }
+];
+
+const galleryById = Object.fromEntries(GALLERY_ITEMS.map(item => [item.id, item]));
+
+function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    for (const item of GALLERY_ITEMS) {
+        const card = document.createElement('figure');
+        const sizeClass = item.size ? `size-${item.size}` : 'size-m';
+        card.className = `photo-item fade-in ${sizeClass}`;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Abrir foto: ${item.title}`);
+        card.dataset.photoId = item.id;
+
+        const img = document.createElement('img');
+        img.className = 'gallery-image';
+        img.src = item.src;
+        img.alt = item.alt;
+        img.loading = 'lazy';
+
+        img.addEventListener('error', () => {
+            card.classList.add('is-missing');
+            card.dataset.missing = 'true';
+        });
+
+        const overlay = document.createElement('figcaption');
+        overlay.className = 'photo-overlay';
+
+        const title = document.createElement('div');
+        title.className = 'photo-title';
+        title.textContent = item.title || '';
+
+        if (item.title) {
+            overlay.appendChild(title);
+        }
+
+        card.appendChild(img);
+        card.appendChild(overlay);
+        grid.appendChild(card);
+    }
+
+    // Delegate events once
+    if (!grid.dataset.bound) {
+        grid.addEventListener('click', (e) => {
+            const card = e.target.closest('[data-photo-id]');
+            if (!card) return;
+            if (card.dataset.missing === 'true') return;
+            openModal(card.dataset.photoId);
+        });
+        grid.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const card = e.target.closest('[data-photo-id]');
+            if (!card) return;
+            e.preventDefault();
+            if (card.dataset.missing === 'true') return;
+            openModal(card.dataset.photoId);
+        });
+        grid.dataset.bound = 'true';
+    }
+
+    observeFadeIns(grid);
+}
+
 // Gallery modal functions
 function openModal(photoId) {
     const modal = document.getElementById('photoModal');
     const modalImage = document.getElementById('modalImage');
     const closeBtn = document.querySelector('.close-modal');
-    
-    // Aquí puedes agregar las rutas reales de las fotos
-    const photoData = {
-        'santuario_enero': '<img src="img/santuario_enero.jpg" alt="Cinderwood en Santuario Pub, enero 2026" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santuario Pub, Buga</strong><br>Presentación en vivo — Enero 2026',
-        'concert1': '<img src="img/toque.jpg" alt="Cinderwood en Skandalo Tulua" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Skandalo, Tuluá 2025</strong><br>Show épico en vivo',
-        'studio1': '<img src="img/estudioPID.jpg" alt="Grabación de Pure in Deep" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>En el estudio</strong><br>Grabando "Pure in Deep" - 2025',
-        'backstage1': '<img src="img/preparacion.jpg" alt="Cinderwood backstage" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Backstage</strong><br>Los momentos antes de salir al escenario',
-        'concert2': '<img src="img/toque3.jpg" alt="Cinderwood en Santo Café Bar Buga" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santo Café Bar, Buga</strong><br>Show íntimo en vivo - 2025',
-        'band1': '<img src="img/grabacion_Until.jpg" alt="Grabación EP Until The Last One Goes" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Grabando el EP</strong><br>Primer EP "Until The Last One Goes"',
-        'acoustic1': '<img src="img/toque2.jpg" alt="Cinderwood en Cafetería Vonbayage" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Cafetería Vonbayage</strong><br>Sesión acústica íntima - 2025'
-        ,
-        'santuario1': '<img src="img/Santuario.jpg" alt="Cinderwood en Santuario Pub" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Santuario Pub</strong><br>Show en vivo - 2025',
-        'nextEvent': '<img src="img/santuario.jpeg" alt="Presentación en Santuario Pub, 17 de enero" style="width: 100%; height: auto; border-radius: 10px;"><br><strong>Próximo Evento</strong><br>17 de enero — Santuario Pub, Buga'
-    };
-    
-    modalImage.innerHTML = photoData[photoId] || 'Foto no encontrada';
+
+    const item = galleryById[photoId];
+    if (!item) {
+        modalImage.textContent = 'Foto no encontrada';
+    } else {
+        modalImage.classList.remove('photo-placeholder');
+        modalImage.innerHTML = `
+            <img class="modal-photo" src="${item.src}" alt="${item.alt}">
+            <div class="modal-caption">
+                <strong>${item.title}</strong>
+            </div>
+        `;
+    }
     modal.style.display = 'block';
     
     // Prevenir scroll del body cuando el modal está abierto
@@ -201,8 +371,14 @@ function openModal(photoId) {
 
 function closeModal() {
     const modal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
+
+    if (modalImage) {
+        modalImage.classList.add('photo-placeholder');
+        modalImage.textContent = 'Aquí aparecerá la foto seleccionada';
+    }
 }
 
 // Cerrar modal al hacer click fuera de la imagen
